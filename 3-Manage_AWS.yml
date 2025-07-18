@@ -14,6 +14,11 @@
         name: "{{ bucket_name }}"
         state: present
         region: us-east-1
+    
+    - name: Create a sample file to upload
+      shell: echo "Hello from Ansible!" > "{{ file_path }}"
+      args:
+        creates: "{{ file_path }}"
 
     - name: Upload the file from /tmp/sample.txt to the S3 bucket
       amazon.aws.s3_object:
@@ -22,4 +27,6 @@
         src: "{{ file_path }}"
         mode: put
         region: us-east-1
+
+
 
