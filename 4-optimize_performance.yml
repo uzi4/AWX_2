@@ -1,0 +1,13 @@
+---
+- name: Collect and show server info with tuning
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Show hostname
+      ansible.builtin.debug:
+        msg: "The hostname is {{ ansible_hostname }}"
+
+    - name: List cached facts directory (for verification)
+      ansible.builtin.command: ls /runner/facts
+      ignore_errors: yes
