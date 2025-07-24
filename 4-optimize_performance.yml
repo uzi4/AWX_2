@@ -1,5 +1,5 @@
 ---
-- name: Gather remote host facts and verify cache location
+- name: Gather facts and validate caching
   hosts: all
   gather_facts: yes
 
@@ -8,8 +8,16 @@
       debug:
         msg: "Remote hostname is {{ ansible_hostname }}"
 
+    - name: Set dummy fact (force caching)
+      set_fact:
+        my_dummy_fact: "hello_cache"
+        cacheable: yes
+
+    - name: Wait 3 seconds to ensure cache is written
+      pause:
+        seconds: 3
+
     - name: Verify fact cache exists in /runner/facts
-      ansible.builtin.command: ls /runner/facts
+      command: ls -l /runner/facts
       delegate_to: localhost
       run_once: true
-      ignore_errors: yes
