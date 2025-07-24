@@ -1,13 +1,15 @@
 ---
-- name: Collect and show server info with tuning
+- name: Gather remote host facts and verify cache location
   hosts: all
   gather_facts: yes
 
   tasks:
-    - name: Show hostname
-      ansible.builtin.debug:
-        msg: "The hostname is {{ ansible_hostname }}"
+    - name: Show remote hostname
+      debug:
+        msg: "Remote hostname is {{ ansible_hostname }}"
 
-    - name: List cached facts directory (for verification)
+    - name: Verify fact cache exists in /runner/facts
       ansible.builtin.command: ls /runner/facts
+      delegate_to: localhost
+      run_once: true
       ignore_errors: yes
