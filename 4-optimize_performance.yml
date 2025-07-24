@@ -8,15 +8,6 @@
       debug:
         msg: "Remote hostname is {{ ansible_hostname }}"
 
-    - name: Set dummy fact (force caching)
-      set_fact:
-        my_dummy_fact: "hello_cache"
-        cacheable: yes
-
-    - name: Wait 3 seconds to ensure cache is written
-      pause:
-        seconds: 3
-
     - name: Verify fact cache exists in /runner/facts
       command: ls -l /runner/facts
       delegate_to: localhost
