@@ -21,3 +21,9 @@
       command: ls -l /runner/facts
       delegate_to: localhost
       run_once: true
+
+    - name: Show cached file content
+      command: cat /runner/facts/{{ inventory_hostname }}
+      delegate_to: localhost
+      run_once: true
+      ignore_errors: yes
