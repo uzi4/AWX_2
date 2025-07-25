@@ -5,8 +5,8 @@
 
   tasks:
     - name: Simulate a long-running task
-      ansible.builtin.command: /bin/sleep 30
-      async: 60
+      ansible.builtin.command: /bin/sleep 60
+      async: 120
       poll: 0
 
     - name: Display message while background task runs
