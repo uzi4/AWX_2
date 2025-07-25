@@ -1,0 +1,14 @@
+---
+- name: Run long task asynchronously
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Simulate a long-running task
+      ansible.builtin.command: /bin/sleep 30
+      async: 60
+      poll: 0
+
+    - name: Display message while background task runs
+      ansible.builtin.debug:
+        msg: "The sleep command has been started in the background."
